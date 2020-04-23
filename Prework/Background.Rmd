@@ -1,0 +1,93 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+[Simulation, Estimation and Applications of Hawkes Processes](https://scse.d.umn.edu/sites/scse.d.umn.edu/files/obral_master.pdf)
+
+Hawkes processes are a sub-class of stochastic processes that were introduced in 1971 by Hawkes to model the occurrence of seismic events. The processes themselves are characterised by a stochastic intensity vector, which represents the conditional probability density of the occurrence of an event in the immediate future. Hawkes Processes are a type of point process that are uniquely characterised by being self-exciting. That is, the arrival of a given event increases the probability that the given event will occur again for a given period of time. Their flexibility and real-world relevancy has resulted in a host of applications. For example, in the case of financial data, this allows propagation of stock crashes and surges to be modelled. In social media, they are used for modelling ‘twitter cascades’. Further examples include the modelling of earthquake events, neuron firing times, and terrorist activity.
+
+A vital aspect of model fitting and parameter estimation is one of identifiability. Identifiability can roughly be taken to mean that there exists is a unique maximum likelihood estimator for any arbitrary dataset. When models become unidentifiable, there are multiple parameter values that are equally likely to have given rise to the data. This can cause significant problems as the fitted model can diverge significantly from the true data generating process, rendering inference and prediction useless. Understanding when Hawkes processes become unidentifiable has yet to be fully explored, particularly in the multivariate setting and when event observations are aggregated into bins to form a time series of counts, as is common with many datasets.
+
+This project will investigate under what circumstances Hawkes processes become unidentifiable. In doing so you will make a vital contribution to an ongoing project in applying multivariate Hawkes processes to computer network data for cyber-security purposes.
+
+
+# Useful Papers in General
+
+Note that in general there is a lot of good application papers for siesmic data sets and financial data sets but very few good theoretical avenues have been explored.
+
+[Dirichlet-Hawkes Processes with Applications to Clustering Continuous-Time Document Streams](https://www.cc.gatech.edu/~lsong/papers/DuFarAhmSmoSon15.pdf)
+
+[code for Dirichlet-Hawkes Processes](https://github.com/JFChi/Dirichlet-Hawkes-Process?files=1)
+
+[Neural Hawkes Process](https://arxiv.org/pdf/1612.09328.pdf)
+
+[Reconfigurable Predictive Systems for Event Streams](https://spiral.imperial.ac.uk/bitstream/10044/1/50159/1/Guo-C-2017-PhD-Thesis.pdf)
+
+[Online Learning for Multivariate Hawkes Processes](https://papers.nips.cc/paper/7079-online-learning-for-multivariate-hawkes-processes.pdf)
+
+[Self-Exciting Spatio-Temporal Point Processes](https://arxiv.org/pdf/1708.02647.pdf)
+
+[Maximum Likelihood Estimation of Poisson and Hawkes Processes](https://www.ijcai.org/Proceedings/2018/0409.pdf)
+
+[Likelihood based inference for the multivariate renewal Hawkes process](https://www.researchgate.net/publication/323162326_Likelihood_based_inference_for_the_multivariate_renewal_Hawkes_process)
+
+[Likelihood function for multivariate Hawkes](https://www.math.fsu.edu/~ychen/research/HawkesLikelihood.pdf)
+
+[Indian Buffet](http://auai.org/uai2018/proceedings/papers/289.pdf)
+
+[Bayesian Inference for Hawkes](https://pure.au.dk/ws/files/44190794/imf_csgb_2011_01.pdf)
+
+[Fake news and Hawkes Processes](https://emilianodc.com/talks/gfaih.pdf)
+
+# Identifiability Issues
+
+[twitter cascades](https://eudl.eu/pdf/10.4108/icst.valuetools.2014.258186)
+
+[twitter information diffusion](https://arxiv.org/pdf/1802.09304.pdf)
+
+[What is not proven yet](https://scholar.lib.vt.edu/MTNS/Papers/138.pdf)
+
+[Non-parametric estimation](https://hal.archives-ouvertes.fr/hal-01502252/document)
+
+# Thoughts
+
+A new criterion could be invested in that allows more flexibility in model comparison than AIC or BIC that doesn't solely penalise on the number of parameters but also the simplicity and importance of said parameter. (How like backgeound knowledge is something?)
+
+Dassios and Zhao 
+
+pat laub (simulation stuff but simple)
+ 
+# Useful Code
+
+In **R** there is the **hawkes** library and the **THAP** toolbox in MATLAB. Lots of papers discussing code can be found on [arxiv](http://www.arxiv-sanity.com/1602.04511).
+
+# Hawkes Papers
+
+[First Paper](https://www.jstor.org/stable/2334319?seq=1)
+
+[Point Spectra of Some Mutually Exciting Point Processes](https://www.jstor.org/stable/2984686?seq=1)
+
+[A Cluster Process Representation of a Self-Exciting Process](https://www.jstor.org/stable/3212693?seq=1)
+
+# Papers Suggested by Leigh
+
+[Apparent criticality and calibration issues in the Hawkes self-excited point process model](https://www.tandfonline.com/doi/full/10.1080/14697688.2015.1032544?scroll=top&needAccess=true)
+
+[Simulation method for Multivariate Hawkes with Dissimilar Decays](https://www.researchgate.net/publication/313477640_Simulation_and_Calibration_of_a_Fully_Bayesian_Marked_Multidimensional_Hawkes_Process_with_Dissimilar_Decays)
+
+[Pat Laub](https://pat-laub.github.io/pdfs/honours_thesis.pdf)
+
+[Maximum Likelihood Estimation of Hawkes](https://www.ism.ac.jp/editsec/aism/pdf/031_1_0145.pdf)
+
+[Approximate Simulation of Hawkes Processes](https://link.springer.com/article/10.1007/s11009-006-7288-z)
+
+[Non-parametric estimation procedure for Hawkes](https://www.tandfonline.com/doi/full/10.1080/00949655.2017.1422126)
+
+[Learning Triggers in Kernel Hawkes](http://proceedings.mlr.press/v28/zhou13.pdf)
+
+[Nonparametric EM Algorithm for Hawkes](https://www.researchgate.net/publication/265012233_A_Nonparametric_EM_Algorithm_for_Multiscale_Hawkes_Processes)
+
+[Online Learning for Hawkes](https://papers.nips.cc/paper/7079-online-learning-for-multivariate-hawkes-processes.pdf)
+
+[Dirichlet Mixture Model of Hawkes](https://arxiv.org/pdf/1701.09177.pdf)
