@@ -58,20 +58,3 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
   returnlist$t <- ttmp
   return(returnlist)
 }
-
-
-# test stuff
-# For M = 2
-# M <- 2; m <- c(0.5,1); y <- matrix(c(1,0,0,1), ncol = M)
-# d <-  matrix(c("Exp"), ncol = M, nrow = M); del <- matrix(c(1), ncol = M, nrow = M)
-# n <- c(1,1)
-
-# test <- Hawkes.sim(M = M, mu = m, Y = y, dist = d, delta = del, N = n, t = 5)
-
-# For M = 4
-# M <- 4; m <- c(0.5,1,0.2,0.4); y <- matrix(c(0), ncol = M, nrow = M)
-# d <-  matrix(c("Exp"), ncol = M, nrow = M); del <- matrix(c(0.2), ncol = M, nrow = M)
-# n <- c(1,1,1,1)
-
-# test <- Hawkes.sim(M = M, mu = m, Y = y, dist = d, delta = del, N = n, t = 1000)
-# plot(1:length(test$r), test$r, type = "l", col = "blue")
