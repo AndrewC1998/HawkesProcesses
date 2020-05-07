@@ -6,7 +6,7 @@ def PoissonByThinning(T, intensity, M):
     P = []
     
     while t < T:
-        E = np.random.exponential(M)
+        E = np.random.exponential(1/M)
         t += E
         U = np.random.uniform(high = M)
         
@@ -24,7 +24,7 @@ def HawkesByThinning(T, v, a, b, l0 = 0):
     while t < T:
         
         M = l
-        E = np.random.exponential(M)
+        E = np.random.exponential(1/M)
         t += E
         U = np.random.uniform(high = M)
         
@@ -43,7 +43,7 @@ def HawkesByClusters(T, v, a, b):
     D = np.random.poisson(a/b, size = k)
     
     for i, D_i in enumerate(D):
-        P.extend( C[i]+ np.random.exponential(b, size = D_i) )
+        P.extend( C[i]+ np.random.exponential(1/b, size = D_i) )
     
     P.extend(C).sort()
     
