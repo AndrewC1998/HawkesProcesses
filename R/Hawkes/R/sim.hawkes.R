@@ -1,4 +1,4 @@
-sim.hawkes <- function(mu, alpha, beta, n, variate = "univariate", seed = 1){
+uni.sim.hawkes <- function(mu, alpha, beta, n, variate = "univariate", seed = 1){
   if(variate == "univariate"){
     s <- 0; t <- 0
     set.seed(seed)
