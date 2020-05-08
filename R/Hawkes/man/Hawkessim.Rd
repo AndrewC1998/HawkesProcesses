@@ -19,13 +19,13 @@ dist = d, delta = del, N = n, t = 5)
 
 # For M = 4
 M <- 4; m <- c(0.5,1,0.2,0.4)
-y <- matrix(c(abs(rnorm(16,5,6))), ncol = M, nrow = M)
+y <- matrix(c(rep(0,16)), ncol = M, nrow = M)
 d <-  matrix(c("Exp"), ncol = M, nrow = M)
 del <- matrix(c(runif(16,0,0.8)), ncol = M, nrow = M)
-n <- c(27,6,92,0)
+n <- c(0,0,0,0)
 
 test <- Hawkes.sim(M = M, mu = m, Y = y,
-dist = d, delta = del, N = n, t = 100)
+dist = d, delta = del, N = n, t = 0.1)
 plot(1:length(test$r), test$r, type = "l", col = "blue")
 plot(1:length(test$N[,1]), test$N[,1], type = "l",
 col = "blue", xlab = "t", ylab = "N")

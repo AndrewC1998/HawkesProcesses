@@ -9,11 +9,11 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
   # N is the vector of the number of events attributed to process i observed at and before time 0
   # t is the maturity time
 
-  r <- c(0)
-  lambda <- matrix(c(0), nrow = M, ncol = M)
+  r <- c(0); lambda <- list()
+  lambda[[1]] <- matrix(c(0), nrow = M, ncol = M)
   for(m in 1:M){
     for(i in 1:M){
-      lambda[i,m] <- Y[i,m]
+      lambda[[1]][i,m] <- Y[i,m]
     }
   }
   a <- list()
@@ -28,9 +28,9 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
       for(i in 2:(M+1)){
         # CDF <- 1 - exp(-(1/delta[i,m])*(lambda[i,m])*(1 - exp(-delta[i,m])))
         u <- runif(1)
-        tmp <- 1 - exp(-(1/delta[i-1,m])*(lambda[i-1,m]))
+        tmp <- 1 - exp(-(1/delta[i-1,m])*(lambda[[1]][i-1,m]))
         if(u < tmp){
-          a[[j]][i,m] <- -(1/delta[i-1,m])*log(1 + ((delta[i-1,m])/(lambda[i-1,m]))*log(1-u))
+          a[[j]][i,m] <- -(1/delta[i-1,m])*log(1 + ((delta[i-1,m])/(lambda[[j]][i-1,m]))*log(1-u))
         }else{
           a[[j]][i,m] <- Inf
         }
@@ -41,6 +41,7 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
     mstar <- as.numeric(star[,2])
     istar <- as.numeric(star[,1])
     zjxj <- c(mstar, istar)
+    lambda[[j+1]] <- matrix(c(0), nrow = M, ncol = M)
     for(m in 1:M){
       if(dist[mstar,m]=="Exp"){
         ymstar <- rexp(1, r[j+1])
@@ -48,7 +49,7 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
         stop("Distribution not currently supported.")
       }
       for(i in 1:M){
-        lambda[i,m] <- lambda[i,m]*exp(-delta[i,m]*(a[[j]][istar,mstar])) + ymstar*(i==zjxj[1])
+        lambda[[j+1]][i,m] <- lambda[[j]][i,m]*exp(-delta[i,m]*(a[[j]][istar,mstar])) + ymstar*(i==zjxj[1])
       }
       N[m] <- N[m] + 1*(m == zjxj[1])
     }
@@ -56,12 +57,21 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
     k <- Nfull[j+1, mstar]
     ttmp[k] <- r[j+1]
   }
-  returnlist <- list(); returnlist$r <- r[-length(r)]
-  returnlist$N <- Nfull[-length(Nfull[,1]),]
-  returnlist$t <- ttmp
-  return(returnlist)
+  # Create matrix of intensities
+  intensity <- matrix(c(0), ncol = M, nrow = j)
+  for(m in 1:M){
+    for(t in 1:j){
+      intensity[t,m] <- mu[m] + sum(lambda[[t]][,m])
+    }
+  }
+  # Create summary statistic to return
+  rl <- list(); rl$r <- r[-length(r)]
+  rl$N <- Nfull[-length(Nfull[,1]),]
+  rl$t <- ttmp; rl$intensity <- intensity
+  return(rl)
   # Output:
+  # intensity is the intensity matrix. Each column is intensities for process m
   # r is the event times for all point processes
-  # N is the M corresponding count processes
+  # N is the M corresponding count processes. Each column is one process
   # t is the event times
 }

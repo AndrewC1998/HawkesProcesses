@@ -2,7 +2,7 @@
 \alias{Hawkes.plot}
 \title{Plot simulations of Multivariate Hawkes process}
 \usage{
-Hawkes.plot(data)
+Hawkes.plot(data, type = "Count")
 }
 \description{
 Plots the simulations of a Hawkes process frome \code{Hawkes.sim}.
