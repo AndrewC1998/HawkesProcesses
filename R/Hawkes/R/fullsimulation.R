@@ -1,4 +1,6 @@
 Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
+  # Process simulates an M-dimensional Hawkes process
+  # Inputs:
   # M is the number of dimensions
   # mu is the background intensity vector
   # Y is matrix of inital sizes of self-excited jumps
@@ -58,4 +60,8 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
   returnlist$N <- Nfull[-length(Nfull[,1]),]
   returnlist$t <- ttmp
   return(returnlist)
+  # Output:
+  # r is the event times for all point processes
+  # N is the M corresponding count processes
+  # t is the event times
 }
