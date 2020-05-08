@@ -1,4 +1,4 @@
-Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
+Hawkes.sim <- function(M, mu, Y, dist, delta, N, params, t, paramsfunc){
   # Process simulates an M-dimensional Hawkes process
   # Inputs:
   # M is the number of dimensions
@@ -7,7 +7,9 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
   # dist is the distribution function that Y follows
   # delta is a matrix of the rate of exponential decay
   # N is the vector of the number of events attributed to process i observed at and before time 0
+  # params is for the specific parameter choices of a given dist
   # t is the maturity time
+  # paramsfunc allows for manual dist must write dist[i,m] = "Manual". Note must be defined as external function
 
   r <- c(0); lambda <- list()
   lambda[[1]] <- matrix(c(0), nrow = M, ncol = M)
@@ -44,7 +46,16 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
     lambda[[j+1]] <- matrix(c(0), nrow = M, ncol = M)
     for(m in 1:M){
       if(dist[mstar,m]=="Exp"){
-        ymstar <- rexp(1, r[j+1])
+        # requires params to be MxM matrix
+        ymstar <- rexp(1, params[mstar,m])
+      }else if(dist[mstar,m]=="Gamma"){
+        # requires param to be list with each an MxM matrix
+        ymstar <- rgamma(1, params[[1]][mstar,m], params[[2]][mstar,m])
+      }else if(dist[mstar,m]=="Normal"){
+        # requires param to be list with each an MxM matrix
+        ymstar <- rgamma(1, params[[1]][mstar,m], params[[2]][mstar,m])
+      }else if(dist[mstar,m]=="Manual"){
+        ymstar <- paramsfunc(params)
       }else{
         stop("Distribution not currently supported.")
       }
