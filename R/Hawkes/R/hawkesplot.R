@@ -1,9 +1,10 @@
 Hawkes.plot <- function(data, type = "Count"){
   if(type == "Count"){
-    plot(data$r, data$N[,1], type = "l",
-         col = "blue", xlab = "Time", ylab = "Counting Process")
+    plot(data$r, data$N[,1], type = "s",
+         col = "blue", xlab = "Time", ylab = "Counting Process",
+         ylim = c(10^floor(log10(min(data$N))), max(data$N)+1))
     for(i in 2:length(data$N[1,])){
-      lines(data$r, data$N[,i], col = i + 10*i)
+      lines(data$r, data$N[,i], col = i + 10*i, type = "s")
     }
     grid(20,20)
   }else if(type == "Intensity"){
