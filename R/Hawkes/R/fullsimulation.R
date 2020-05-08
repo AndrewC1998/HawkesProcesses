@@ -28,15 +28,16 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
         u <- runif(1)
         tmp <- 1 - exp(-(1/delta[i-1,m])*(lambda[i-1,m]))
         if(u < tmp){
-          a[[j]][i,m] <- Inf
+          a[[j]][i,m] <- -(1/delta[i-1,m])*log(1 + ((delta[i-1,m])/(lambda[i-1,m]))*log(1-u))
         }else{
           a[[j]][i,m] <- Inf
         }
       }
     }
     r[j+1] <- r[j] + min(a[[j]])
-    mstar <- ceiling(which.min(a[[j]])/ncol(a[[j]]))
-    istar <- ceiling(which.min(a[[j]])/nrow(a[[j]]))
+    star <- which(a[[j]] == min(a[[j]]), arr.ind = TRUE)
+    mstar <- as.numeric(star[,2])
+    istar <- as.numeric(star[,1])
     zjxj <- c(mstar, istar)
     for(m in 1:M){
       if(dist[mstar,m]=="Exp"){
@@ -45,9 +46,9 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, t){
         stop("Distribution not currently supported.")
       }
       for(i in 1:M){
-        lambda[i,m] <- lambda[i,m]*exp(-delta[i,m]*min(a[[j]])) + ymstar*(i==zjxj[1])
+        lambda[i,m] <- lambda[i,m]*exp(-delta[i,m]*(a[[j]][istar,mstar])) + ymstar*(i==zjxj[1])
       }
-      N[m] <- N[m] + 1*(m = zjxj[1])
+      N[m] <- N[m] + 1*(m == zjxj[1])
     }
     Nfull <- rbind(Nfull, N)
     k <- Nfull[j+1, mstar]
