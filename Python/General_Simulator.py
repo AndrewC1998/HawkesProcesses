@@ -76,19 +76,21 @@ def HawkesSim(T, mu, b, Y, lamb0 = None, plot = True):
     effects = np.asarray(effects)[:-1]
     
     if plot:
-        plotHawkes(M, r, effects)
+        plotHawkes(M, r, effects,T)
     
     return r, causes, effects
 
-def plotHawkes(M, r, effects):
+def plotHawkes(M, r, effects, T):
     if len(r)<3:
         print('Not enough points.')
         return
     
     ax = plt.axes()
     for i in range(M):
-        ith_process = r[effects == i]
-        plt.step(ith_process, np.arange(1, len(ith_process)+1), label = i)
+        ith_process = np.concatenate([[0,], r[effects == i], [T,]])
+        count = np.arange(0, len(ith_process))
+        count[-1] = count[-2]
+        plt.step(ith_process, count, label = i, where = 'post')
     if len(r)<1e3:
         plt.xticks(r)
         ax.xaxis.set_major_formatter(plt.NullFormatter())
@@ -96,10 +98,13 @@ def plotHawkes(M, r, effects):
     plt.legend()
     plt.show()
 
+np.random.seed(3)
 M = 6
 b = np.random.normal(loc = 0.5, size = (M,M))**2
-mu = 1+np.random.normal(size = M)**2
+mu = 1+np.random.normal(scale = 0.3, size = M)**2
 def generateY(m, M):
     return np.min(b)
 
-r, c, e = HawkesSim(10, mu, b, generateY)
+averageIntensity = np.linalg.inv(np.eye(M) - np.min(b)/b.T).dot(mu)
+
+r, c, e = HawkesSim(25, mu, b, generateY)
