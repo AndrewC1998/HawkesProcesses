@@ -1,11 +1,13 @@
 Package: Hawkes
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Toolbox for Hawkes processes
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Date: 2019-05-09
+Authors@R: c(person("Andrew", "Connell", role=c("aut","cre"),email="amc19@ic.ac.uk"))
+Maintainer: Andrew Connell <amc19@ic.ac.uk>
+Description: Includes fitting and simulation methods as well as options to find the MLE of the models.
+Depends: R(>= 3.6)
+License: GPL
 Encoding: UTF-8
 LazyData: true
+NeedsCompilation: yes
