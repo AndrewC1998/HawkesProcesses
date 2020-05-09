@@ -1,5 +1,5 @@
 # HawkesProcesses
-Hi to everyone reading. Please upload the code for a given language into the correct folder and please add papers by editing the .Rmd file.
+Hi to everyone reading. Please upload the code for a given language into the correct folder and please add papers by editing the .Rmd file. There is a book folder which has some general background on self-exciting point processes. 
 
 ## Some notes on R Packages
 
