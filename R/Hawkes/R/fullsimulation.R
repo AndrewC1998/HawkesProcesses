@@ -47,13 +47,13 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, params, t, paramsfunc){
     for(m in 1:M){
       if(dist[mstar,m]=="Exp"){
         # requires params to be MxM matrix
-        ymstar <- rexp(1, params[mstar,m])
+        ymstar <- rexp(1, params[[1]][mstar,m])
       }else if(dist[mstar,m]=="Gamma"){
         # requires param to be list with each an MxM matrix
-        ymstar <- rgamma(1, params[[1]][mstar,m], params[[2]][mstar,m])
+        ymstar <- rgamma(1, params[[2]][mstar,m], params[[3]][mstar,m])
       }else if(dist[mstar,m]=="Normal"){
         # requires param to be list with each an MxM matrix
-        ymstar <- rgamma(1, params[[1]][mstar,m], params[[2]][mstar,m])
+        ymstar <- rnorm(1, params[[4]][mstar,m], params[[5]][mstar,m])
       }else if(dist[mstar,m]=="Manual"){
         ymstar <- paramsfunc(params)
       }else{
