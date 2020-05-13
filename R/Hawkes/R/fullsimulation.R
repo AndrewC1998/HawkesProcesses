@@ -77,7 +77,7 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, params, t, paramsfunc){
   }
   # Create summary statistic to return
   rl <- list(); rl$r <- r[-length(r)]
-  rl$N <- Nfull[-length(Nfull[,1]),]
+  rl$N <- as.matrix(Nfull[-length(Nfull[,1]),])
   rl$t <- ttmp; rl$intensity <- intensity
   return(rl)
   # Output:

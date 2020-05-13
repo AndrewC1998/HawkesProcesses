@@ -10,7 +10,7 @@ Function simulates a Hawkes process for a given M dimensions.
 \examples{
 # For M = 2, changing distribution
 M <- 2
-m <- c(2,3,0.2,0.7)
+m <- c(2,3)
 y <- matrix(c(rep(0,4)), ncol = M, nrow = M)
 d <-  matrix(sample(c("Exp", "Gamma"),4,
                     replace = TRUE), ncol = M, nrow = M)

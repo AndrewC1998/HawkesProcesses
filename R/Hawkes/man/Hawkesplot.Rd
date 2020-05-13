@@ -10,7 +10,7 @@ Plots the simulations of a Hawkes process frome \code{Hawkes.sim}.
 \examples{
 # For M = 2, changing distribution
 M <- 2
-m <- c(2,3,0.2,0.7)
+m <- c(2,3)
 y <- matrix(c(rep(0,4)), ncol = M, nrow = M)
 d <-  matrix(sample(c("Exp", "Gamma"),4,
                     replace = TRUE), ncol = M, nrow = M)
@@ -25,7 +25,7 @@ test <- Hawkes.sim(M = M, mu = m, Y = y, dist = d,
                    delta = del, N = n, params = p, t = 10)
 # plot counting processes
 Hawkes.plot(test, leg = TRUE)
-# plot intensitis
+# plot intensities
 Hawkes.plot(test, type = "Intensity", leg = FALSE)
 
 # For M = 4, constant distribution
@@ -46,6 +46,6 @@ test <- Hawkes.sim(M = M, mu = m, Y = y, dist = d,
                    delta = del, N = n, params = p, t = 10)
 # plot counting processes
 Hawkes.plot(test)
-# plot intensitis
+# plot intensities
 Hawkes.plot(test, type = "Intensity")
 }
