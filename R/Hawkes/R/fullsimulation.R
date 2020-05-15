@@ -71,14 +71,14 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, params, t, paramsfunc){
   # Create matrix of intensities
   intensity <- matrix(c(0), ncol = M, nrow = j)
   for(m in 1:M){
-    for(t in 1:j){
-      intensity[t,m] <- mu[m] + sum(lambda[[t]][,m])
+    for(tt in 1:j){
+      intensity[tt,m] <- mu[m] + sum(lambda[[tt]][,m])
     }
   }
   # Create summary statistic to return
   rl <- list(); rl$r <- r[-length(r)]
   rl$N <- as.matrix(Nfull[-length(Nfull[,1]),])
-  rl$t <- ttmp; rl$intensity <- intensity
+  rl$t <- ttmp[ttmp<t]; rl$intensity <- intensity
   return(rl)
   # Output:
   # intensity is the intensity matrix. Each column is intensities for process m
