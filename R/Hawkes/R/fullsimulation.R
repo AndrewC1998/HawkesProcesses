@@ -3,7 +3,7 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, params, t, paramsfunc){
   # Inputs:
   # M is the number of dimensions
   # mu is the background intensity vector
-  # Y is matrix of inital sizes of self-excited jumps
+  # Y is matrix of initial sizes of self-excited jumps
   # dist is the distribution function that Y follows
   # delta is a matrix of the rate of exponential decay
   # N is the vector of the number of events attributed to process i observed at and before time 0
