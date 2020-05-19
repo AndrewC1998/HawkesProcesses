@@ -5,7 +5,7 @@
 Hawkes.plot(data, type = "Count")
 }
 \description{
-Plots the simulations of a Hawkes process frome \code{Hawkes.sim}.
+Plots the simulations of a Hawkes process from \code{Hawkes.sim}.
 }
 \examples{
 # For M = 2, changing distribution

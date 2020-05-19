@@ -23,7 +23,10 @@ laub.ll <- function(t, mu, alpha, beta){
 }
 
 # mle function
-laub.mle <- function(t, mu, alpha, beta){
+laub.mle <- function(t, mu, alpha, beta, divisions){
+  mu <- c(seq(mu[1],mu[2], length.out = divisions))
+  alpha <- c(seq(alpha[1], alpha[2], length.out = divisions))
+  beta <- c(seq(beta[1], beta[2], length.out = divisions))
   # Expand choices of (mu, alpha, beta)
   eg <- expand.grid(mu, alpha, beta)
   # log-likelihood function
