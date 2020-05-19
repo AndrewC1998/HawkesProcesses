@@ -19,5 +19,3 @@ Hawkes.mle <- function(alpha, beta, M, t, mu, threshold = 10){
   print(tmp)
   return(paste(c('alpha:'), a[maxpoint[1,1]], c(', beta:'), a[maxpoint[1,2]], c(', likelihood:'), maxval))
 }
-
-Hawkes.mle(alpha = c(0.1,10), beta = c(0.1,10), M = 1, t = as.matrix(test$r), mu = c(1))
