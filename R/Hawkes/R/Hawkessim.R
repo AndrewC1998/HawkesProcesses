@@ -12,12 +12,7 @@ Hawkes.sim <- function(M, mu, Y, dist, delta, N, params, t, paramsfunc){
   # paramsfunc allows for manual dist must write dist[i,m] = "Manual". Note must be defined as external function
 
   r <- c(0); lambda <- list()
-  lambda[[1]] <- matrix(c(0), nrow = M, ncol = M)
-  for(m in 1:M){
-    for(i in 1:M){
-      lambda[[1]][i,m] <- Y[i,m]
-    }
-  }
+  lambda[[1]] <- Y
   a <- list()
   j <- 0
   Nfull <- matrix(N, ncol = M, nrow = 1)
