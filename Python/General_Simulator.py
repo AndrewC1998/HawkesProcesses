@@ -108,3 +108,4 @@ def generateY(m, M):
 averageIntensity = np.linalg.inv(np.eye(M) - np.min(b)/b.T).dot(mu)
 
 r, c, e = HawkesSim(25, mu, b, generateY)
+print(r)

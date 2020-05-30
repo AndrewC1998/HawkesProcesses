@@ -140,7 +140,7 @@ function [ll] = Hawkesll(t, mu, alpha, beta, P)
                         tmp3 = tmp3 + tmp4*tmp5;
                 	end
                 end
-            end
+            end 
             lltmp(m) = tmp1 - mu(m)*T - tmp3;
         end
         ll = sum(lltmp, 'all');

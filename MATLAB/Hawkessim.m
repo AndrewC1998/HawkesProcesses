@@ -20,7 +20,7 @@ function [t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
 %         - t is the event times
  
  M = length(mu);
- t = [0];
+ t = [0]; 
  lambda = {};
  lambda{1} = Y;
  a = {};
@@ -55,7 +55,9 @@ function [t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
     lambda{j+1} = zeros(M,M);
     
     for m = 1:M
-       if dist(mstar,m) == "Exp"
+       if dist(mstar,m) == "Constant" % fix this
+          ymstar = Y(mstar,m);
+       elseif dist(mstar,m) == "Exp"
           ymstar = exprnd(1/(params{1}(mstar,m)));
        elseif dist(mstar,m) == "Gamma"      
           ymstar = gamrnd(params{2}(mstar,m), 1/(params{3}(mstar,m)));

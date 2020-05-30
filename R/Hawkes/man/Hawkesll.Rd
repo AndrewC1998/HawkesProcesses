@@ -21,9 +21,9 @@ p[[1]] <- matrix(c(runif(4,0,10)), ncol = M, nrow = M)
 p[[2]] <- matrix(c(runif(4,0,10)), ncol = M, nrow = M)
 p[[3]] <- matrix(c(runif(4,0,2)), ncol = M, nrow = M)
 
-test <- Hawkes.sim(M = M, mu = m, Y = y, dist = d,
-                   delta = del, N = n, params = p, t = 10)
+test <- Hawkes.sim(mu = m, Y = y, dist = d,
+                   delta = del, N = n, t = 10, params = p)
 
 ll <- Hawkes.ll(matrix(c(test$r,test$r), ncol = 2), mu = m,
-                alpha = p[[2]], beta = p[[3]])
+                alpha = y, beta = del)
 }

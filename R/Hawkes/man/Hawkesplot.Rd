@@ -21,8 +21,8 @@ p[[1]] <- matrix(c(runif(4,0,10)), ncol = M, nrow = M)
 p[[2]] <- matrix(c(runif(4,0,10)), ncol = M, nrow = M)
 p[[3]] <- matrix(c(runif(4,0,2)), ncol = M, nrow = M)
 
-test <- Hawkes.sim(M = M, mu = m, Y = y, dist = d,
-                   delta = del, N = n, params = p, t = 10)
+test <- Hawkes.sim(mu = m, Y = y, dist = d,
+                   delta = del, N = n, t = 10, params = p)
 # plot counting processes
 Hawkes.plot(test, leg = TRUE)
 # plot intensities
@@ -42,8 +42,8 @@ n <- c(12,4,7,15)
 p <- list()
 p[[1]] <- matrix(c(0.5,2,0.1,0.4), ncol = M, nrow = M)
 
-test <- Hawkes.sim(M = M, mu = m, Y = y, dist = d,
-                   delta = del, N = n, params = p, t = 10)
+test <- Hawkes.sim(mu = m, Y = y, dist = d,
+                   delta = del, N = n, t = 10, params = p)
 # plot counting processes
 Hawkes.plot(test)
 # plot intensities
