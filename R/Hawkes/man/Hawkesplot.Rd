@@ -2,10 +2,21 @@
 \alias{Hawkes.plot}
 \title{Plot simulations of Multivariate Hawkes process}
 \usage{
-Hawkes.plot(data, type = "Count")
+Hawkes.plot(data, type = "Count", leg = TRUE)
 }
 \description{
 Plots the simulations of a Hawkes process from \code{Hawkes.sim}.
+}
+\arguments{
+  \item{data}{
+    Object created from Hawkes.sim
+  }
+  \item{type}{
+  Provides two options: Count and Intensity.
+  }
+  \item{leg}{
+    legend if TRUE
+  }
 }
 \examples{
 # For M = 2, changing distribution

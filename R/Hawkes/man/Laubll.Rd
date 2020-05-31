@@ -7,6 +7,20 @@ laub.ll(t, mu, alpha, beta)
 \description{
 Provides log-likelihood of Laub's Equations.
 }
+\arguments{
+  \item{t}{
+    data
+  }
+  \item{mu}{
+    base intensity
+  }
+  \item{alpha}{
+    alpha parameter
+  }
+  \item{beta}{
+    beta parameter
+  }
+}
 \examples{
 # For M = 2, changing distribution
 M <- 2
@@ -21,7 +35,7 @@ p[[1]] <- matrix(c(runif(4,0,10)), ncol = M, nrow = M)
 p[[2]] <- matrix(c(runif(4,0,10)), ncol = M, nrow = M)
 p[[3]] <- matrix(c(runif(4,0,2)), ncol = M, nrow = M)
 
-test <- Hawkes.sim(M = M, mu = m, Y = y, dist = d,
+test <- Hawkes.sim(mu = m, Y = y, dist = d,
                    delta = del, N = n, params = p, t = 10)
 
 ll <- laub.ll(t = test$r, mu = 0.5, alpha = 0.1, beta = 0.5)

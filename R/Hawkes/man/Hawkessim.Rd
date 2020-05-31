@@ -2,10 +2,36 @@
 \alias{Hawkes.sim}
 \title{Simulation of Multivariate Hawkes process}
 \usage{
-Hawkes.sim(mu, Y, dist, delta, N, params, t, paramsfunc)
+Hawkes.sim(mu, Y, dist, delta, N, t, params, paramsfunc)
 }
 \description{
 Function simulates a Hawkes process for a given M dimensions.
+}
+\arguments{
+  \item{mu}{
+    Base Intensity
+  }
+  \item{Y}{
+    alpha parameter matrix
+  }
+  \item{dist}{
+  Distribution parameter matrix
+  }
+  \item{delta}{
+  beta parameter matrix
+  }
+  \item{N}{
+  Starting values for each counting process
+  }
+  \item{t}{
+  Horizon
+  }
+  \item{params}{
+  Empty list() if the distribution is constant. Else matrix of distributions.
+  }
+  \item{paramsfunc}{
+  Manually created sampling distribution
+  }
 }
 \examples{
 # For M = 2, changing distribution
@@ -22,7 +48,7 @@ p[[2]] <- matrix(c(runif(4,0,10)), ncol = M, nrow = M)
 p[[3]] <- matrix(c(runif(4,0,2)), ncol = M, nrow = M)
 
 test <- Hawkes.sim(mu = m, Y = y, dist = d,
-                   delta = del, N = n, t= 10, params = p)
+                   delta = del, N = n, t = 10, params = p)
 test
 
 # For M = 4, constant distribution

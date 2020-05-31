@@ -1,1 +1,3 @@
 exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "grid", "legend", "lines")
+importFrom("stats", "rexp", "rgamma", "rnorm", "runif")

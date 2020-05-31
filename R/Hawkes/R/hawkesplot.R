@@ -16,9 +16,9 @@ Hawkes.plot <- function(data, type = "Count", leg = TRUE){
     }
     grid(20,20)
   }else if(type == "Intensity"){
-    plot(test$r, data$intensity[,1], type = "l",
+    plot(data$r, data$intensity[,1], type = "l",
          col = "red", xlab = "Time", ylab = "lambda_{m}(t)",
-         ylim = c(floor(min(test$intensity)), ceiling(max(test$intensity))))
+         ylim = c(floor(min(data$intensity)), ceiling(max(data$intensity))))
     cols <- c("red")
     if(length(data$N[1,])>1){
       for(i in 2:length(data$intensity[1,])){

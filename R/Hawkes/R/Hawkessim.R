@@ -1,4 +1,4 @@
-Hawkes.sim <- function(mu, Y, dist, delta, N, params, t, paramsfunc){
+Hawkes.sim <- function(mu, Y, dist, delta, N, t, params = list(), paramsfunc){
   # Process simulates an M-dimensional Hawkes process
   # Inputs:
   # mu is the background intensity vector
@@ -6,8 +6,8 @@ Hawkes.sim <- function(mu, Y, dist, delta, N, params, t, paramsfunc){
   # dist is the distribution function that Y follows
   # delta is a matrix of the rate of exponential decay
   # N is the vector of the number of events attributed to process i observed at and before time 0
-  # params is for the specific parameter choices of a given dist
   # t is the maturity time
+  # params is for the specific parameter choices of a given dist
   # paramsfunc allows for manual dist must write dist[i,m] = "Manual". Note must be defined as external function
 
   M <- length(mu)

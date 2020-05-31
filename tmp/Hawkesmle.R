@@ -2,7 +2,7 @@ Hawkes.mle <- function(alpha, beta, M, t, mu, threshold = 10){
   # alpha min max decisions
   # beta min max decisions
   # M number of dimensions
-  # t is the data we have avaiable
+  # t is the data we have available
   # mu is means
 
   a <- seq(alpha[1], alpha[2], length.out = threshold)

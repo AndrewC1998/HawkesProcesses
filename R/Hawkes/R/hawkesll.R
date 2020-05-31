@@ -39,15 +39,25 @@ Hawkes.ll <- function(t, mu, alpha, beta, P = 1){
       for(m in 1:M){
         tmp1 <- 0
         for(k in 1:N){
+          tmp2 <- 0
           if(k == 1){
-            tmp1 <- log(mu[m])
+            for(i in 1:M){
+              dtmp <- 0
+              for(d in 1:N){
+                if(t[d,i] < t[k,m]){
+                  dtmp <- dtmp + exp(-beta[i,m]*(t[k,m] - t[d,i]))
+                }
+              }
+              R[i,m] <- dtmp
+              tmp2 <- tmp2 + alpha[i,m]*R[i,m]
+            }
+            tmp1 <- tmp1 + log(mu[m] + tmp2)
           }else{
-            tmp2 <- 0
             for(i in 1:M){
               dtmp <- 0
               for(d in 1:N){
                 if(t[k-1,m] <= t[d,i] && t[d,i] < t[k,m]){
-                  dtmp <- exp(-beta[i,m]*(t[k,m] - t[d,i]))
+                  dtmp <- dtmp + exp(-beta[i,m]*(t[k,m] - t[d,i]))
                 }
               }
               R[i,m] <- exp(-beta[i,m]*(t[k,m] - t[k-1,m]))*R[i,m] + dtmp
@@ -82,8 +92,8 @@ Hawkes.ll <- function(t, mu, alpha, beta, P = 1){
         }else{
           tmp2 <- 0
           for(j in 1:P){
-            R[j] <- (exp(-beta[j]*(t[k] - t[k-1])))*(1 + R[j])
-            tmp2 <- tmp2 + alpha[j]*R[j]
+            R[j] <- (exp(-beta[[j]]*(t[k] - t[k-1])))*(1 + R[j])
+            tmp2 <- tmp2 + alpha[[j]]*R[j]
           }
           tmp1 <- tmp1 + log(mu + tmp2)
         }
@@ -92,8 +102,8 @@ Hawkes.ll <- function(t, mu, alpha, beta, P = 1){
       tmp3 <- 0
       for(j in 1:P){
         for(k in 1:N){
-          tmp4 <- alpha[j]/beta[j]
-          tmp5 <- 1 - exp(-beta[j]*(Tmax - t[k]))
+          tmp4 <- alpha[[j]]/beta[[j]]
+          tmp5 <- 1 - exp(-beta[[j]]*(Tmax - t[k]))
           if(is.finite(tmp4)){
             tmp3 <- tmp3 + tmp4*tmp5
           }
@@ -110,10 +120,23 @@ Hawkes.ll <- function(t, mu, alpha, beta, P = 1){
       for(m in 1:M){
         tmp1 <- 0
         for(k in 1:N){
-          tmp2 <- 0
           if(k == 1){
-            tmp1 <- log(mu[m])
+            tmp2 <- 0
+            for(i in 1:M){
+              for(j in 1:P){
+                dtmp <- 0
+                for(d in 1:N){
+                  if(t[d,i] < t[k,m]){
+                    dtmp <- dtmp + exp(-beta[[j]][i,m]*(t[k,m] - t[d,i]))
+                  }
+                }
+                R[[j]][i,m] <- dtmp
+                tmp2 <- tmp2 + alpha[[j]][i,m]*R[[j]][i,m]
+              }
+            }
+            tmp1 <- tmp1 + log(mu[m] + tmp2)
           }else{
+            tmp2 <- 0
             for(i in 1:M){
               for(j in 1:P){
                 if(i == m){
@@ -122,10 +145,10 @@ Hawkes.ll <- function(t, mu, alpha, beta, P = 1){
                   dtmp <- 0
                   for(d in 1:N){
                     if(t[k-1,m] <= t[d,i] && t[d,i] < t[k,m]){
-                      dtmp <- exp(-beta[[j]][i,m]*(t[k,m] - t[d,i]))*(1 + R[[j]][i,m])
+                      dtmp <- dtmp + exp(-beta[[j]][i,m]*(t[k,m] - t[d,i]))
                     }
                   }
-                  R[[j]][i,m] <- (exp(-beta[[j]][i,m]*(t[k,m] - t[k-1,m])))*(1 + R[[j]][i,m]) + dtmp
+                  R[[j]][i,m] <- (exp(-beta[[j]][i,m]*(t[k,m] - t[k-1,m])))*(R[[j]][i,m]) + dtmp
                 }
                 tmp2 <- tmp2 + alpha[[j]][i,m]*R[[j]][i,m]
               }

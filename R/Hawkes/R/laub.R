@@ -35,7 +35,7 @@ laub.mle <- function(t, mu, alpha, beta, divisions){
   }
   tmp <- mapply(ll, m = eg$Var1, a = eg$Var2, b = eg$Var3)
   val <- which.min(tmp)
-  params <- eg[377,]
+  params <- eg[val,]
   params <- cbind(params, -min(tmp))
   rownames(params) <- c("MLE")
   colnames(params) <- c("mu", "alpha", "beta", "loglik")
