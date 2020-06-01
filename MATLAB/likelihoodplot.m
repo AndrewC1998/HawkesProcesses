@@ -12,7 +12,20 @@ N = [0];
 params = {};
 params{1} = [3];
 
-[t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, 10);
+[r,n,t,intensity] = Hawkessim(mu, Y, dist, delta, N, params, 10);
+
+% 2D case
+mu = [ 1 2];
+Y = [1 05; 0.5 1];
+dist = ["Constant" "Constant"; "Constant" "Constant"];
+delta = [5 0.1 ; 0.1 2];
+N = [0 0];
+params = {};
+
+[r,n,t,intensity] = Hawkessim(mu, Y, dist, delta, N, params, 1);
+
+
+
 
 % create vector of likelihood values
 tmp = [];

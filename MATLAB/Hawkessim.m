@@ -1,4 +1,4 @@
-function [t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
+function [r,n,t,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
 %
 % Hawkessim - Simulate a multivariate Hawkes process
 %             (asymmetric matrices allowed)
@@ -20,16 +20,16 @@ function [t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
 %         - t is the event times
  
  M = length(mu);
- t = [0]; 
+ r = [0]; 
  lambda = {};
  lambda{1} = Y;
  a = {};
  j = 0;
  Nfull = [N];
- ttmp = [];
+ ttmp = zeros(M, 10^8);
  
  % Start the while loop till maturity time
- while t(j+1) < tmax
+ while r(j+1) < tmax
     j = j + 1;
     a{j} = zeros(M+1,M);
     
@@ -47,7 +47,7 @@ function [t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
     end
     
     minimum = min(min(a{j}));
-    t(j+1) = t(j) + minimum;
+    r(j+1) = r(j) + minimum;
     
     [X,Z] = find(a{j}==minimum);
     mstar = Z;
@@ -55,7 +55,7 @@ function [t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
     lambda{j+1} = zeros(M,M);
     
     for m = 1:M
-       if dist(mstar,m) == "Constant" % fix this
+       if dist(mstar,m) == "Constant" 
           ymstar = Y(mstar,m);
        elseif dist(mstar,m) == "Exp"
           ymstar = exprnd(1/(params{1}(mstar,m)));
@@ -75,8 +75,24 @@ function [t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
     
     Nfull = [Nfull; N];
     k = Nfull(j+1, mstar);
-    ttmp(k) = t(j+1);
+    ttmp(mstar, k) = r(j+1);
  end
+ 
+ % Reassign the event time to the correct event
+  Nfull(end,:) = [];
+  Nmax = max(Nfull, [], 'all');
+  ttmp = ttmp(:, 1:Nmax);
+  
+  for i = 1:M
+    for tt = 2:Nmax
+      if ttmp(i, tt) > tmax
+          ttmp(i, tt) = 0;
+      end
+      if ttmp(i,tt) == 0
+        ttmp(i,tt) = ttmp(i,tt - 1);
+      end
+    end
+  end
  
  % Create matrix of intensities
   itmp = zeros(j, M);
@@ -87,10 +103,9 @@ function [t,n,r,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
   end
   
  % Create summary statistic to return
- t(end)=[];
- Nfull(end,:) = [];
+ r(end)=[];
  n = Nfull;
- r = ttmp(ttmp<tmax);
+ t = ttmp;
  intensity = itmp;
 end
 
