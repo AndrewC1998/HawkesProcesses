@@ -73,13 +73,13 @@ Hawkes.sim <- function(mu, Y, dist, delta, N, t, params = list(), paramsfunc){
   if(M == 1){
     ttmp <- matrix(ttmp, length(ttmp), 1)
   }
-  for(tt in 1:M){
-    for(i in 2:max(Ntmp)){
-      if(ttmp[i,tt] == 0){
-        ttmp[i,tt] <- ttmp[i-1,tt]
-      }
-    }
-  }
+  # for(tt in 1:M){
+    # for(i in 2:max(Ntmp)){
+      # if(ttmp[i,tt] == 0){
+        # ttmp[i,tt] <- ttmp[i-1,tt]
+      # }
+    # }
+  # }
 
   # Create matrix of intensities
   intensity <- matrix(c(0), ncol = M, nrow = j)

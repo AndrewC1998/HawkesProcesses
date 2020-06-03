@@ -88,9 +88,9 @@ function [r,n,t,intensity] = Hawkessim(mu, Y, dist, delta, N, params, tmax)
       if ttmp(i, tt) > tmax
           ttmp(i, tt) = 0;
       end
-      if ttmp(i,tt) == 0
-        ttmp(i,tt) = ttmp(i,tt - 1);
-      end
+      % if ttmp(i,tt) == 0
+        % ttmp(i,tt) = ttmp(i,tt - 1);
+      % end
     end
   end
  
