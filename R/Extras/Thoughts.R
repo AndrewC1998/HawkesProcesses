@@ -50,37 +50,12 @@ test1 <- Hawkes.sim(mu = m, Y = y, dist = d,
 
 # MCMC and optim - heres how
 # optim
-t <- simulateHawkes(1, 0.5, 0.501, 10000)[[1]]
+t <- hawkes::simulateHawkes(1, 0.5, 5, 10000)[[1]]
 f <- function(params){
   - Hawkes.ll(t, params[1], params[2], params[3])
 }
 params <- optim(c(1,0.1,0.1), f)
 paste( c("mu", "alpha", "beta"), round(params$par,2), sep=" = ")
-
-# MCMC
-tmpb <- c()
-for(j in 1:length(beta)){
-  tmpa <- c()
-  for(i in 1:length(alpha)){
-    tmpa[i] <- - Hawkes.ll(t, 1, alpha[i], beta[j])
-  }
-  MCMC <- sum(alpha*(1/sum(tmpa))*tmpa)
-  tmpb[j] <- MCMC
-}
-ahat <- mean(tmpb)
-
-tmpa <- c()
-for(i in 1:length(alpha)){
-  tmpb <- c()
-  for(j in 1:length(beta)){
-    tmpb[j] <- - Hawkes.ll(t, 1, alpha[i], beta[j])
-  }
-  MCMC <- sum(beta*(1/sum(tmpb))*tmpb)
-  tmpa[i] <- MCMC
-}
-bhat <- mean(tmpa)
-
-c(ahat, bhat)
 
 # M is 1 case
 M <- 1
